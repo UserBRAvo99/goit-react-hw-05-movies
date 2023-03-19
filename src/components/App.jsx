@@ -1,22 +1,19 @@
-// import style from '../components/app.module.scss';
+import { Route, Routes } from 'react-router-dom';
 
-import { Route, Routes, Link } from 'react-router-dom';
-
+import Layout from './Layout';
 import Home from './Home';
 import Movies from './Movies';
+import MoviesDetails from './MoviesDetails';
 
 export const App = () => {
   return (
     <div className="App">
-      <header>
-        <div>
-          <Link to="/">Home</Link>
-          <Link to="/movies">Movies</Link>
-        </div>
-      </header>
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/movies" element={<Movies />}></Route>
+        <Route element={<Layout />}>
+          <Route index element={<Home />}></Route>
+          <Route path="/movies" element={<Movies />}></Route>
+          <Route path="/movies/:moviesId" element={<MoviesDetails />}></Route>
+        </Route>
       </Routes>
     </div>
   );
