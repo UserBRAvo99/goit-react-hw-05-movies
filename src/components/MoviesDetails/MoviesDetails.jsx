@@ -13,9 +13,7 @@ function MoviesDetails() {
     const getData = async () => {
       try {
         const { data } = await getMovieId(moviesId);
-        console.log(data.genres);
         setFilm(data);
-        console.log(film.genres);
       } catch (error) {
         throw new Error(error);
       }
@@ -36,7 +34,7 @@ function MoviesDetails() {
         </li>
         <li>
           <h5>Genres</h5>
-          <p></p>
+          {film === [] && console.log(film.genres.map(e => console.log(e)))}
         </li>
       </ul>
     </div>
