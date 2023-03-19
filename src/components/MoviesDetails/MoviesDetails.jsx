@@ -1,26 +1,45 @@
-import { useEffect } from 'react';
+/* eslint-disable array-callback-return */
 import { useState } from 'react';
-import { json, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
-const KEY = '40b7484b6ec326f8fea3361b4d791f3d';
+import { getMovieId } from 'components/fetchId';
 
 function MoviesDetails() {
   const [film, setFilm] = useState([]);
-  const { id } = useParams();
+  const { moviesId } = useParams();
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/550?api_key=40b7484b6ec326f8fea3361b4d791f3d`
-    ).then(response => {
-      console.log(response);
-    });
-  }, [id]);
+    const getData = async () => {
+      try {
+        const { data } = await getMovieId(moviesId);
+        console.log(data.genres);
+        setFilm(data);
+        console.log(film.genres);
+      } catch (error) {
+        throw new Error(error);
+      }
+    };
+    getData();
+  }, [moviesId]);
+
   return (
     <div>
-      <p>{id}</p>
+      <ul>
+        <li>
+          <h3>{film.title}</h3>
+          <p></p>
+        </li>
+        <li>
+          <h4>Overview</h4>
+          <p></p>
+        </li>
+        <li>
+          <h5>Genres</h5>
+          <p></p>
+        </li>
+      </ul>
     </div>
   );
 }
 export default MoviesDetails;
-
-// https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US

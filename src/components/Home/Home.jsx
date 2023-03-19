@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getMoviesTrending } from '../fetch';
-// import MoviesDetails from 'components/MoviesDetails';
 
 function Home() {
   const [dataFilms, setDataFilms] = useState([]);
@@ -13,7 +12,6 @@ function Home() {
         const {
           data: { results },
         } = await getMoviesTrending();
-        console.log(results);
         if (results.length === 0) return;
         setDataFilms(results);
         console.log();
