@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import shortid from 'shortid';
 
-import { getCastId } from 'components/fetchCast';
+import { getMovieReviews } from 'components/fetchReviews';
 
-function Cast() {
-  const [castMovies, setCastMovies] = useState(null);
+function Reviews() {
+  const [filmReviews, setFilmReviews] = useState(null);
   const { moviesId } = useParams();
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await getCastId(moviesId);
+        const { data } = await getMovieReviews(moviesId);
         console.log(data);
-        setCastMovies(data);
+        setFilmReviews(data);
       } catch (error) {
         throw new Error(error);
       }
@@ -22,15 +22,12 @@ function Cast() {
   }, [moviesId]);
   return (
     <ul>
-      {castMovies?.cast?.length &&
-        castMovies?.cast?.map(item => {
+      {filmReviews?.results?.length &&
+        filmReviews?.results?.map(item => {
           return (
             <li key={shortid()}>
-              <img
-                src={`https://image.tmdb.org/t/p/w500${item.profile_path}`}
-                alt={item.name}
-              />
-              <p>{item.name}</p>
+              <p>{item.author}</p>
+              <p>{item.content}</p>
             </li>
           );
         })}
@@ -38,4 +35,4 @@ function Cast() {
   );
 }
 
-export default Cast;
+export default Reviews;
