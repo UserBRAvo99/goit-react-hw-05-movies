@@ -1,7 +1,7 @@
 import shortid from 'shortid';
 
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
 import { getMovieId } from 'components/fetchId';
@@ -50,7 +50,15 @@ function MoviesDetails() {
             </li>
           </ul>
           <div>
-            <h5>Add</h5>
+            <h5>Additional information</h5>
+            <ul>
+              <li>
+                <Link>Cast</Link>
+              </li>
+              <li>
+                <Link>Reviews</Link>
+              </li>
+            </ul>
           </div>
         </>
       )}
