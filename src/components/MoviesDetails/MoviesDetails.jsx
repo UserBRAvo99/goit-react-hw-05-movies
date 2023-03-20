@@ -1,7 +1,7 @@
 import shortid from 'shortid';
 
 import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, Outlet } from 'react-router-dom';
 import { useEffect } from 'react';
 
 import { getMovieId } from 'components/fetchId';
@@ -14,7 +14,6 @@ function MoviesDetails() {
     const getData = async () => {
       try {
         const { data } = await getMovieId(moviesId);
-        console.log(data);
         setFilm(data);
       } catch (error) {
         throw new Error(error);
@@ -41,24 +40,27 @@ function MoviesDetails() {
             </li>
             <li>
               <h5>Genres</h5>
-              <div>
+              <ul>
                 {film?.genres?.length &&
                   film?.genres.map(item => {
-                    return <p key={shortid()}>{item.name}</p>;
+                    return <li key={shortid()}>{item.name}</li>;
                   })}
-              </div>
+              </ul>
             </li>
           </ul>
           <div>
             <h5>Additional information</h5>
             <ul>
               <li>
-                <Link>Cast</Link>
+                <Link to={`cast`}>Cast</Link>
               </li>
               <li>
                 <Link>Reviews</Link>
               </li>
             </ul>
+          </div>
+          <div>
+            <Outlet />
           </div>
         </>
       )}
