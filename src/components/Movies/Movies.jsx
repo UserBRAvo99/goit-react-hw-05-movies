@@ -1,11 +1,14 @@
 import { getMoviesSearch } from 'components/fetchMoviesSearch';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 function Movies() {
   const [films, setFilms] = useState([]);
   const [search, setSearch] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const query = searchParams.get('query');
 
   const handleSearchFilm = event => {
     event.preventDefault();
@@ -14,11 +17,12 @@ function Movies() {
 
     if (inputValue.length === 0) {
       setFilms([]);
+
       return;
     }
 
     if (search === inputValue) return;
-
+    setSearchParams({ query: inputValue });
     setSearch(inputValue);
     setFilms([]);
 
@@ -27,17 +31,18 @@ function Movies() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await getMoviesSearch(search);
+        const { data } = await getMoviesSearch(query);
         setFilms(data.results);
       } catch (error) {
         throw new Error(error);
       }
     };
 
-    if (search) {
+    if (query) {
       getData();
     }
-  }, [search]);
+  }, [query]);
+
   return (
     <div>
       <div>
