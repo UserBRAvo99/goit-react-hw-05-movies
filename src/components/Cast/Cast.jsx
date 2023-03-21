@@ -4,6 +4,8 @@ import shortid from 'shortid';
 
 import { getCastId } from 'components/fetchCast';
 
+import style from './cast.module.scss';
+
 function Cast() {
   const [castMovies, setCastMovies] = useState(null);
   const { moviesId } = useParams();
@@ -25,8 +27,9 @@ function Cast() {
       {castMovies?.cast?.length &&
         castMovies?.cast?.map(item => {
           return (
-            <li key={shortid()}>
+            <li key={shortid()} className={style.item}>
               <img
+                className={style.img}
                 src={`https://image.tmdb.org/t/p/w500${item.profile_path}`}
                 alt={item.name}
               />

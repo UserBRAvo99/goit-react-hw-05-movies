@@ -28,7 +28,6 @@ function Movies() {
     const getData = async () => {
       try {
         const { data } = await getMoviesSearch(search);
-        console.log(data.results);
         setFilms(data.results);
       } catch (error) {
         throw new Error(error);
